@@ -1,4 +1,4 @@
-package pl.Korman.Spring.Learning;
+package pl.Korman.Spring.Learning.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
