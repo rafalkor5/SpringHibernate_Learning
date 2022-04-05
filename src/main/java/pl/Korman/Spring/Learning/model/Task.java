@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 //table daje możliwość zmiany domyślnej nazwy tabeli
@@ -18,10 +19,10 @@ public class Task {
 
     //validator
     @NotBlank(message = "Field description must not be empty")
-    @Setter
+
     private String description;
 
-    @Setter
+
     private boolean done;
 
 }
