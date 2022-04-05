@@ -16,6 +16,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
 
+    //validator
     @NotBlank(message = "Field description must not be empty")
     @Setter
     private String description;

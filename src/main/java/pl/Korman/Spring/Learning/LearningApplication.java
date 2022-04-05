@@ -11,12 +11,12 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @SpringBootApplication
 public class LearningApplication implements RepositoryRestConfigurer {
 
+	//validator
 	@Override
 	public void configureValidatingRepositoryEventListener(final ValidatingRepositoryEventListener validatingListener) {
 		validatingListener.addValidator("beforeCreate",validator());
 		validatingListener.addValidator("beforeCreate",validator());
 	}
-
 	@Bean
 	Validator validator() {
 		return new LocalValidatorFactoryBean();
@@ -24,6 +24,8 @@ public class LearningApplication implements RepositoryRestConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LearningApplication.class, args);
+
+
 
 
 	}
