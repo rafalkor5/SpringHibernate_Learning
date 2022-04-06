@@ -66,5 +66,18 @@ class TaskController {
         return ResponseEntity.created(URI.create("/" + result.getID())).body(result);
     }
 
+    @DeleteMapping("/tasks/{id}")
+    ResponseEntity<?> deleteTask(@PathVariable int id){
+        if(!repository.existsById(id)){ // jeżeli nie ma obiektu o takim id
+            return ResponseEntity.notFound().build(); //zwróć error
+        }
+        repository.deleteById(id);
+        logger.warn("Delete Task");// Komunikat do Loggera
+        return ResponseEntity.ok().build();
+    }
+
+
+
+
 
 }

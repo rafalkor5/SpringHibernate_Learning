@@ -18,4 +18,7 @@ public interface TaskRepository {
 
     Task save(Task entity);
 
+    void deleteById(int id);
+
+
 }
