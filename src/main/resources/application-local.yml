@@ -1,13 +1,10 @@
-  spring:
+spring:
     h2:
       console:
           enabled: true
           path: '/console'
     datasource:
       url: jdbc:h2:file:E:/programowanie/SpringBoot_HibernateLearning/database/task
-      username: Test
-      password: testowe
     jpa:
       hibernate:
         ddl-auto: create-drop
-

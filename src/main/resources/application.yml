@@ -1,0 +1,8 @@
+spring:
+    main:
+      banner-mode: OFF
+#Nasze własne ustawienia
+task:
+  template:
+    allowMultipleTasks: false
+#java -jar SpringLearning-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
