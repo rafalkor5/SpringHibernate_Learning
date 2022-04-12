@@ -48,15 +48,15 @@ class TaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Transactional //Transaction.begin // transaction.commit // metoda musi być publiczna
     @PutMapping("/tasks/{id}")
-    ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task update){
+    public ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task create){
         if(!repository.existsById(id)){ // jeżeli nie ma obiektu o takim id
             return ResponseEntity.notFound().build(); //zwróć error
         }
         logger.warn("Update Task");// Komunikat do Loggera
-
-        update.setID(id);//ustawienie wygenerowanego na podane z adresu URL
-        repository.save(update);
+        repository.findById(id)
+                .ifPresent(task -> task.updateFrom(create));
         return ResponseEntity.noContent().build(); //zwrócenie dla użytkownika
     }
 
@@ -78,7 +78,7 @@ class TaskController {
     }
 
     @Transactional //Transaction.begin // transaction.commit // metoda musi być publiczna
-    @PatchMapping("/tasks/{id}")
+    @PatchMapping("/tasks/changeStatus/{id}")
     public ResponseEntity<?> toggleTask(@PathVariable int id){
         //@Transactional begin
         if(!repository.existsById(id)){ // jeżeli nie ma obiektu o takim id
