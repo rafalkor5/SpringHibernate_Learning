@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.Korman.Spring.Learning.model.Task;
 import pl.Korman.Spring.Learning.model.TaskRepository;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -74,6 +75,20 @@ class TaskController {
         repository.deleteById(id);
         logger.warn("Delete Task");// Komunikat do Loggera
         return ResponseEntity.ok().build();
+    }
+
+    @Transactional //Transaction.begin // transaction.commit // metoda musi być publiczna
+    @PatchMapping("/tasks/{id}")
+    public ResponseEntity<?> toggleTask(@PathVariable int id){
+        //@Transactional begin
+        if(!repository.existsById(id)){ // jeżeli nie ma obiektu o takim id
+            return ResponseEntity.notFound().build(); //zwróć error
+        }
+        repository.findById(id)
+                .ifPresent(task -> task.setDone(!task.isDone()));   // !task.isDone() zmiana na przeciwieństwo
+        logger.warn("Toggle done - Task " + id);// Komunikat do Loggera
+        //@Transactional commit
+        return ResponseEntity.noContent().build(); //zwrócenie dla użytkownika
     }
 
 
