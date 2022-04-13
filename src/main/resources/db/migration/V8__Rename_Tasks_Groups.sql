@@ -1,0 +1,1 @@
+alter table tasks_gropus rename to tasks_groups
