@@ -1,9 +1,6 @@
 package pl.Korman.Spring.Learning.model.task;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.Korman.Spring.Learning.model.taskgroup.TaskGroup;
 
 import javax.persistence.*;
@@ -12,6 +9,7 @@ import java.time.LocalDateTime;
 
 
 @NoArgsConstructor // Konstruktor potrzebny do tworzenia encji
+@RequiredArgsConstructor
 @Entity
 @Table(name = "tasks") //table daje możliwość zmiany domyślnej nazwy tabeli
 public class Task {
@@ -22,6 +20,7 @@ public class Task {
 
     //validator
     @NotBlank(message = "Field description must not be empty")
+    @NonNull
     @Getter
     @Setter
     private String description;
@@ -30,6 +29,7 @@ public class Task {
     @Setter
     private boolean done;
 
+    @NonNull
     @Getter
     @Setter
     private LocalDateTime deadline;
