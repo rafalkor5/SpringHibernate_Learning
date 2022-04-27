@@ -32,7 +32,7 @@ public class TaskGroup {
 
 
     @Getter
-    @Setter(AccessLevel.PACKAGE)
+    @Setter
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "taskGroup")
     // Dociągane dopiero po zawołaniu gettera// cascade // wskazanie pola z task odpowiadającego za relacje
     private Set<Task> tasks; // Unikalne taski
