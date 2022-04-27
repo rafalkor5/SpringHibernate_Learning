@@ -1,4 +1,4 @@
-package pl.Korman.Spring.Learning.model;
+package pl.Korman.Spring.Learning.model.task;
 
 import lombok.Getter;
 import lombok.Setter;

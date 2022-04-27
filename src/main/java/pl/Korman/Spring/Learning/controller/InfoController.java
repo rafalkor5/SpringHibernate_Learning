@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.Korman.Spring.Learning.model.TaskConfigurationProperties;
+import pl.Korman.Spring.Learning.model.task.TaskConfigurationProperties;
 
 //Tu przekazujemy dane do restcontrollera
 @AllArgsConstructor

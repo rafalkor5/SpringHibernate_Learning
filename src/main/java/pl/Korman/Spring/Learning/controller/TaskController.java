@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.Korman.Spring.Learning.model.Task;
-import pl.Korman.Spring.Learning.model.TaskRepository;
+import pl.Korman.Spring.Learning.model.task.Task;
+import pl.Korman.Spring.Learning.model.task.TaskRepository;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;

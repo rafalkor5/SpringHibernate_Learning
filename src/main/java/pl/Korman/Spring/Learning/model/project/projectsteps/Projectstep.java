@@ -1,18 +1,18 @@
-package pl.Korman.Spring.Learning.model;
+package pl.Korman.Spring.Learning.model.project.projectsteps;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.Korman.Spring.Learning.model.project.Project;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 @NoArgsConstructor // Konstruktor potrzebny do tworzenia encji
 @Entity
-@Table(name = "tasks_groups") //table daje możliwość zmiany domyślnej nazwy tabeli
-class TaskGroup {
+@Table(name = "project_steps") //table daje możliwość zmiany domyślnej nazwy tabeli
+public class Projectstep {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +26,11 @@ class TaskGroup {
 
     @Getter
     @Setter
-    private boolean done;
+    private int days_to_deadline;
 
-
-    @Getter
+    @Getter(AccessLevel.PACKAGE)
     @Setter(AccessLevel.PACKAGE)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "taskGroup")
-    // Dociągane dopiero po zawołaniu gettera// cascade // wskazanie pola z task odpowiadającego za relacje
-    private Set<Task> tasks; // Unikalne taski
-
+    @ManyToOne // Wiele taskgroyp do jednego projektu
+    @JoinColumn(name ="project_id") // wskazanie kolumny po której dołączamy dane
+    private Project projects_steps;
 }
