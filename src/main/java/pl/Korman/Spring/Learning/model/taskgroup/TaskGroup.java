@@ -37,8 +37,8 @@ public class TaskGroup {
     // Dociągane dopiero po zawołaniu gettera// cascade // wskazanie pola z task odpowiadającego za relacje
     private Set<Task> tasks; // Unikalne taski
 
-    @Getter(AccessLevel.PACKAGE)
-    @Setter(AccessLevel.PACKAGE)
+    @Getter
+    @Setter
     @ManyToOne // Wiele taskgroyp do jednego projektu
     @JoinColumn(name ="project_id") // wskazanie kolumny po której dołączamy dane
     private Project project;

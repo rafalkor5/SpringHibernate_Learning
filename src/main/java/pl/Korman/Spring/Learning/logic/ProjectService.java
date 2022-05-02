@@ -31,24 +31,46 @@ class ProjectService {
         return repository.save(tosave);
     }
 
-    //????????????????????????????????????????????
-    public GroupReadModel createGroup(LocalDateTime deadline, int projectId){
-        if(config.getTemplate().isAllowMultipleTasks() && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)){
+    public GroupReadModel createGroup(LocalDateTime deadline, int projectId) {
+        if (!config.getTemplate().isAllowMultipleTasks() && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)) {
             throw new IllegalStateException("Only one undone group from project is allowed");
         }
-        TaskGroup targetresult = repository.findById(projectId)
+        TaskGroup result = repository.findById(projectId)
                 .map(project -> {
-                    var result = new TaskGroup();
-                    result.setDescription(project.getDescription());
-                    result.setTasks(
+                    var targetGroup = new TaskGroup();
+                    targetGroup.setDescription(project.getDescription());
+                    targetGroup.setTasks(
                             project.getProjectsteps().stream()
-                                    .map(step -> new Task(
-                                            step.getDescription(),
-                                            deadline.plusDays(step.getDays_to_deadline())))
-                                    .collect(Collectors.toSet()));
-                    return result;
-                }).orElseThrow(()-> new IllegalArgumentException("No project with this id"));
-    return new GroupReadModel(targetresult);
+                                    .map(projectStep -> new Task(
+                                            projectStep.getDescription(),
+                                            deadline.plusDays(projectStep.getDays_to_deadline()))
+                                    ).collect(Collectors.toSet())
+                    );
+                    targetGroup.setProject(project);
+                    return taskGroupRepository.save(targetGroup);
+                }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found"));
+        return new GroupReadModel(result);
     }
+
+    //????????????????????????????????????????????
+//    public GroupReadModel createGroup(LocalDateTime deadline, int projectId){
+//        if(!config.getTemplate().isAllowMultipleTasks() && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)){
+//            throw new IllegalStateException("Only one undone group from project is allowed");
+//        }
+//        TaskGroup targetresult = repository.findById(projectId)
+//                .map(buildproject -> {
+//                    var result = new TaskGroup();
+//                    result.setDescription(buildproject.getDescription());
+//                    result.setTasks(
+//                            buildproject.getProjectsteps().stream()
+//                                    .map(step -> new Task(
+//                                            step.getDescription(),
+//                                            deadline.plusDays(step.getDays_to_deadline())))
+//                                    .collect(Collectors.toSet()));
+//                    result.setProject(buildproject);
+//                    return taskGroupRepository.save(result);
+//                }).orElseThrow(()-> new IllegalArgumentException("No project with this id"));
+//    return new GroupReadModel(targetresult);
+//    }
 
 }
