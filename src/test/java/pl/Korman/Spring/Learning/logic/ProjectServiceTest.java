@@ -40,6 +40,10 @@ class ProjectServiceTest {
     @Mock
     private Projectstep mockProjectStep;
 
+    /**
+     * > This function tests if the method createGroup throws an IllegalStateException when there are no multiple tasks and
+     * the tasks are done
+     */
     @Test
     void createGroup_testIf_NoMultipleTasks_TasksIsDone_schould_Throws_IllegalStateException() {
         //given
@@ -54,6 +58,10 @@ class ProjectServiceTest {
                 .hasMessageContaining("one undone group");
     }
 
+    /**
+     * > Given a project service with a valid configuration, when a group is created with a non-existing project, then an
+     * IllegalArgumentException is thrown
+     */
     @Test
     void createGroup_configOk_and_noProject_exists_schould_Throws_IllegalArgumentException() {
         //given
@@ -65,7 +73,7 @@ class ProjectServiceTest {
         //then
         assertThat(exception)
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("No project");
+                .hasMessageContaining("Project with given id");
     }
 
     @Test
@@ -80,7 +88,7 @@ class ProjectServiceTest {
         //then
         assertThat(exception)
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("No project");
+                .hasMessageContaining("Project with given id");
     }
 
 //    @Test
