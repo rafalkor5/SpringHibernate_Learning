@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Service
+//@Service Konfiguracja zrobiona ręcznie w LogicConfigurator
 class ProjectService {
     private ProjectRepository repository;
     private TaskGroupRepository taskGroupRepository;

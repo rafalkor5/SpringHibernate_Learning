@@ -12,19 +12,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Service
+//@Service Konfiguracja zrobiona ręcznie w LogicConfigurator
 class TaskGroupService {
-    private TaskGroupRepository repository;
+    private TaskGroupRepository taskGroupRepository;
     private TaskRepository taskRepository;
 
 
     public GroupReadModel createGroup(GroupWriteModel source){
-        TaskGroup result = repository.save(source.toGroup());
+        TaskGroup result = taskGroupRepository.save(source.toGroup());
         return new GroupReadModel(result);
     }
 
     public List<GroupReadModel> readAll(){
-    return repository.findAll().stream()
+    return taskGroupRepository.findAll().stream()
             .map(GroupReadModel::new)
             .collect(Collectors.toList());
     }
@@ -33,10 +33,10 @@ class TaskGroupService {
         if(taskRepository.existsByDoneIsFalseAndTaskGroup_ID(groupID)){
             throw new IllegalStateException("Group has undone tasks");
         }
-        TaskGroup result = repository.findById(groupID)
+        TaskGroup result = taskGroupRepository.findById(groupID)
                 .orElseThrow(()-> new IllegalArgumentException("TaskGroup with given id not found"));
         result.setDone(!result.isDone());
-        repository.save(result);
+        taskGroupRepository.save(result);
     }
 
 
