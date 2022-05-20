@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 //@Service Konfiguracja zrobiona ręcznie w LogicConfigurator
-class TaskGroupService {
+public class TaskGroupService {
     private TaskGroupRepository taskGroupRepository;
     private TaskRepository taskRepository;
 
@@ -23,7 +23,7 @@ class TaskGroupService {
         return new GroupReadModel(result);
     }
 
-    public List<GroupReadModel> readAll(){
+    public List<GroupReadModel> readAllGroups(){
     return taskGroupRepository.findAll().stream()
             .map(GroupReadModel::new)
             .collect(Collectors.toList());

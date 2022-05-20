@@ -6,3 +6,7 @@ task:
   template:
     allowMultipleTasks: false
 #java -jar SpringLearning-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
+management:
+  endpoints:
+    web:
+      base-path: /tescik

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import pl.Korman.Spring.Learning.model.task.Task;
 import pl.Korman.Spring.Learning.model.task.TaskRepository;
 
+import java.util.List;
+
 //To musi być aby działało taskrepository ( Impelentacja metod z taskrepository)
 @Repository
 interface SqlTaskRepository extends TaskRepository, JpaRepository<Task,Integer> {
@@ -17,5 +19,8 @@ interface SqlTaskRepository extends TaskRepository, JpaRepository<Task,Integer> 
 
     @Override
     boolean existsByDoneIsFalseAndTaskGroup_ID(Integer groupid);
+
+    @Override
+    List<Task> findAllByTaskGroup_ID(Integer groupID);
 
 }

@@ -8,5 +8,11 @@ spring:
     jpa:
       hibernate:
         ddl-auto: validate # ddl- data definition language
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 
 

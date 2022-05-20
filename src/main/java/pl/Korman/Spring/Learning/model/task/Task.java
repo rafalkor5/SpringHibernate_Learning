@@ -1,5 +1,6 @@
 package pl.Korman.Spring.Learning.model.task;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import pl.Korman.Spring.Learning.model.taskgroup.TaskGroup;
 
@@ -32,7 +33,16 @@ public class Task {
     @NonNull
     @Getter
     @Setter
+    @JsonInclude(JsonInclude.Include.NON_NULL)  //ignore null field on this property only
     private LocalDateTime deadline;
+
+    public Task(String description, LocalDateTime deadline,TaskGroup group){
+        this.description = description;
+        this.deadline = deadline;
+        if(group != null){
+            this.taskGroup = group;
+        }
+    }
 
 
 //    @AttributeOverrides({ // tak można nadpisać nazwy kolumn

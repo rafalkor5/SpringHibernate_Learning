@@ -49,7 +49,7 @@ class ProjectServiceTest {
         //given
         configureConfigurationStatus(false);
         configureTaskGroupRepositoryDoneStatus(true);
-        var ProjectServiceTest = new ProjectService(null,mockTaskGroupRepository,mockconfig);
+        var ProjectServiceTest = new ProjectService(null,mockTaskGroupRepository,mockconfig,null);
         //when
         var exception = catchThrowable(()-> ProjectServiceTest.createGroup(LocalDateTime.now(), 0));
         //then
@@ -67,7 +67,7 @@ class ProjectServiceTest {
         //given
         configureConfigurationStatus(true); // goes through if
         given(mockProjectRepository.findById(anyInt())).willReturn(Optional.empty()); // will return allways empty
-        var ProjectServiceTest = new ProjectService(mockProjectRepository,mockTaskGroupRepository,mockconfig); //create project service
+        var ProjectServiceTest = new ProjectService(mockProjectRepository,mockTaskGroupRepository,mockconfig,null); //create project service
         //when
         var exception = catchThrowable(()-> ProjectServiceTest.createGroup(LocalDateTime.now(), 0));
         //then
@@ -82,7 +82,7 @@ class ProjectServiceTest {
         configureConfigurationStatus(false);
         configureTaskGroupRepositoryDoneStatus(false);// goes through if
         given(mockProjectRepository.findById(anyInt())).willReturn(Optional.empty()); // will return allways empty
-        var ProjectServiceTest = new ProjectService(mockProjectRepository,mockTaskGroupRepository,mockconfig); //create project service
+        var ProjectServiceTest = new ProjectService(mockProjectRepository,mockTaskGroupRepository,mockconfig,null); //create project service
         //when
         var exception = catchThrowable(()-> ProjectServiceTest.createGroup(LocalDateTime.now(), 0));
         //then
@@ -102,8 +102,9 @@ class ProjectServiceTest {
 //        given(mockProjectRepository.findById(1)).willReturn(Optional.of(mockProject));
 //
 //        InMemoryGroupRepository inMemoryGroupRepo = getinMemoryGroupRepository();
+//        var serviceTaskgroup = new TaskGroupService(inMemoryGroupRepo,null);
 //        int countBeforeCall = inMemoryGroupRepo.count();
-//        var ProjectServiceTest = new ProjectService(mockProjectRepository,inMemoryGroupRepo,mockconfig);
+//        var ProjectServiceTest = new ProjectService(mockProjectRepository,inMemoryGroupRepo,mockconfig,serviceTaskgroup);
 //        //when
 //        //do naprawy ProjectRepository nie ma projektu o takim numerze
 //
