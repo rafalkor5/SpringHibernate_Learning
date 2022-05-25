@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import pl.Korman.Spring.Learning.model.task.Task;
 import pl.Korman.Spring.Learning.model.task.TaskRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,4 +25,21 @@ public class TaskService {
         logger.info("Supply async");
         return CompletableFuture.supplyAsync(repository::findAll);
     }
+
+    public List<Task> findAllTodayTasksOrBeforeDeadline(){
+        return repository.findAll().stream()
+                .filter(x -> thisDayIsTodayOrBefore(x.getDeadline()))
+                .collect(Collectors.toList());
+    }
+
+    private boolean thisDayIsTodayOrBefore(LocalDateTime dateTime){
+        LocalDate today = LocalDate.now();
+        LocalDate inputDate = LocalDate.of(dateTime.getYear(),dateTime.getMonth(),dateTime.getDayOfMonth());
+        if(today.isEqual(inputDate) || inputDate.isBefore(today)){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
 }

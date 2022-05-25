@@ -14,20 +14,24 @@ import java.util.stream.Collectors;
 @Setter
 public class GroupReadModel {
     private String description;
+    private int Id;
+    private boolean Done;
     /**
      * Deadline from the latest task in group.
      */
     private LocalDateTime deadline;
-    private Set<GroupTaskReadModel> tasks;
+    private Set<TaskReadModel> tasks;
 
     public GroupReadModel(TaskGroup source){
+        Id = source.getID();
         description = source.getDescription();
+        Done = source.isDone();
         source.getTasks().stream()
                 .map(Task::getDeadline)
                 .max(LocalDateTime::compareTo)
                 .ifPresent(date -> deadline = date);
         tasks = source.getTasks().stream()
-                .map(GroupTaskReadModel::new)
+                .map(TaskReadModel::new)
                 .collect(Collectors.toSet());
     }
 

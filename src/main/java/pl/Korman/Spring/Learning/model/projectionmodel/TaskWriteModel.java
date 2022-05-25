@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class GroupTaskWriteModel {
+public class TaskWriteModel {
     private String description;
     private LocalDateTime deadline;
 

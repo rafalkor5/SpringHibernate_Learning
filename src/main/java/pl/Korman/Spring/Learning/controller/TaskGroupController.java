@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
 //Tutaj implementujemy metody
 @RequiredArgsConstructor //konstruktor w starszych wersjach wymagany z @Autowired
 @RestController
-@RequestMapping("/tasks") //dzięki temu w tej klasie nie musimy za każdym razem pisać /tasks w mapingu
+@RequestMapping("/groups") //dzięki temu w tej klasie nie musimy za każdym razem pisać /tasks w mapingu
 class TaskGroupController {
     //Tworzymy logger
     private static final Logger logger = LoggerFactory.getLogger(TaskGroupController.class);
@@ -36,21 +36,22 @@ class TaskGroupController {
 
     //Nadpisane domyślnego zapytania get. bez wyłączania parrams Pagable page oczekuje parametrów
     @GetMapping
-    ResponseEntity<List<GroupReadModel>> readAllGroups ( Pageable page){
+    ResponseEntity<List<GroupReadModel>> readAllGroups () {
         logger.warn("Read Groups");// Komunikat do Loggera
         return ResponseEntity.ok(service.readAllGroups());//zwrócenie dla użytkownika
-
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     ResponseEntity<List<Task>> readAllTasksFromGroup(@PathVariable int id){
-        return ResponseEntity.ok(groupRepository.findById(id).g)
+        logger.warn("ReadAllTaskFrom Group");// Komunikat do Loggera
+        return ResponseEntity.ok(repository.findAllByTaskGroup_ID(id));
     }
 
     @PostMapping  // @RequestBody @Valid sprawdza czy przekazany task jest poprawny
     ResponseEntity<GroupReadModel> createGroup(@RequestBody @Valid GroupWriteModel add){
         logger.warn("Insert Group");// Komunikat do Loggera
-        return ResponseEntity.created(URI.create("/")).body(service.createGroup(add));
+        GroupReadModel result = service.createGroup(add);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
 
@@ -61,8 +62,16 @@ class TaskGroupController {
         return ResponseEntity.noContent().build(); //zwrócenie dla użytkownika
     }
 
+    //Will Return nothing
+    @ExceptionHandler(IllegalArgumentException.class)
+    ResponseEntity<String> handleIllegalArguement(IllegalArgumentException e){
+        return ResponseEntity.notFound().build();
+    }
 
-
-
+    //Will Return messeage in body from IllegalStateException
+    @ExceptionHandler(IllegalStateException.class)
+    ResponseEntity<String> handleIllegalState(IllegalStateException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 
 }

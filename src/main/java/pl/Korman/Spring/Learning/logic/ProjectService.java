@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import pl.Korman.Spring.Learning.model.project.Project;
 import pl.Korman.Spring.Learning.model.project.ProjectRepository;
 import pl.Korman.Spring.Learning.model.projectionmodel.GroupReadModel;
-import pl.Korman.Spring.Learning.model.projectionmodel.GroupTaskWriteModel;
+import pl.Korman.Spring.Learning.model.projectionmodel.TaskWriteModel;
 import pl.Korman.Spring.Learning.model.projectionmodel.GroupWriteModel;
 import pl.Korman.Spring.Learning.model.task.TaskConfigurationProperties;
 import pl.Korman.Spring.Learning.model.taskgroup.TaskGroupRepository;
@@ -44,7 +44,7 @@ class ProjectService {
                     targetGroup.setTasks(
                             project.getProjectsteps().stream()
                                     .map(projectStep -> {
-                                                 var task = new GroupTaskWriteModel();
+                                                 var task = new TaskWriteModel();
                                                  task.setDescription(projectStep.getDescription());
                                                  task.setDeadline(deadline.plusDays(projectStep.getDays_to_deadline()));
                                                  return task;

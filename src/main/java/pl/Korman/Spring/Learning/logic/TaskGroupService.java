@@ -1,6 +1,7 @@
 package pl.Korman.Spring.Learning.logic;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.Korman.Spring.Learning.model.projectionmodel.GroupReadModel;
 import pl.Korman.Spring.Learning.model.projectionmodel.GroupWriteModel;

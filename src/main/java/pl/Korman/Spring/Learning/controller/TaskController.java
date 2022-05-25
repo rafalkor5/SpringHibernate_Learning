@@ -60,6 +60,13 @@ class TaskController {
         return ResponseEntity.ok(repository.findByDone(state));
     }
 
+    @GetMapping("/today")
+    ResponseEntity<List<Task>> findAllTaskToDoToday(){
+        logger.warn("Read Task ToDo By Deadline");// Komunikat do Loggera
+        return ResponseEntity.ok(service.findAllTodayTasksOrBeforeDeadline());
+    }
+
+
     @Transactional //Transaction.begin // transaction.commit // metoda musi być publiczna
     @PutMapping("/{id}")
     public ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task create){

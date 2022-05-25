@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.Korman.Spring.Learning.model.taskgroup.TaskGroup;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 @Setter
 public class GroupWriteModel {
     private String description;
-    private Set<GroupTaskWriteModel> tasks;
+    private Set<TaskWriteModel> tasks;
 
     public TaskGroup toGroup() {
         TaskGroup result = new TaskGroup();
