@@ -2,6 +2,7 @@ package pl.Korman.Spring.Learning.model.projectionmodel;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.Korman.Spring.Learning.model.project.Project;
 import pl.Korman.Spring.Learning.model.taskgroup.TaskGroup;
 
 import java.util.Set;
@@ -14,7 +15,7 @@ public class GroupWriteModel {
     private String description;
     private Set<TaskWriteModel> tasks;
 
-    public TaskGroup toGroup() {
+    public TaskGroup toGroup(final Project project) {
         TaskGroup result = new TaskGroup();
         result.setDescription(description);
         result.setTasks(
@@ -22,6 +23,7 @@ public class GroupWriteModel {
                         .map(source -> source.toTask(result))
                         .collect(Collectors.toSet())
         );
+        result.setProject(project);
         return result;
     }
 

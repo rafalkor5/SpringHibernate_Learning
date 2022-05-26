@@ -33,8 +33,8 @@ public class Project {
     private Set<TaskGroup> groups; // Unikalne projekty
 
     @Getter
-    @Setter(AccessLevel.PACKAGE)
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "projects_steps")
+    @Setter
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     // Dociągane dopiero po zawołaniu gettera// cascade // wskazanie pola z project odpowiadającego za relacje
     private Set<Projectstep> projectsteps; // Unikalne projekty
 

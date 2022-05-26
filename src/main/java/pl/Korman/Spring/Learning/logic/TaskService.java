@@ -35,11 +35,8 @@ public class TaskService {
     private boolean thisDayIsTodayOrBefore(LocalDateTime dateTime){
         LocalDate today = LocalDate.now();
         LocalDate inputDate = LocalDate.of(dateTime.getYear(),dateTime.getMonth(),dateTime.getDayOfMonth());
-        if(today.isEqual(inputDate) || inputDate.isBefore(today)){
-            return true;
-        } else{
-            return false;
-        }
+        //shorted if
+        return today.isEqual(inputDate) || inputDate.isBefore(today);
     }
 
 }

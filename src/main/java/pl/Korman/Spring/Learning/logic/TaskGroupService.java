@@ -3,6 +3,7 @@ package pl.Korman.Spring.Learning.logic;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.Korman.Spring.Learning.model.project.Project;
 import pl.Korman.Spring.Learning.model.projectionmodel.GroupReadModel;
 import pl.Korman.Spring.Learning.model.projectionmodel.GroupWriteModel;
 import pl.Korman.Spring.Learning.model.task.TaskRepository;
@@ -20,7 +21,11 @@ public class TaskGroupService {
 
 
     public GroupReadModel createGroup(GroupWriteModel source){
-        TaskGroup result = taskGroupRepository.save(source.toGroup());
+        return createGroup(source,null);
+    }
+
+    GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+        TaskGroup result = taskGroupRepository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 
@@ -39,6 +44,7 @@ public class TaskGroupService {
         result.setDone(!result.isDone());
         taskGroupRepository.save(result);
     }
+
 
 
 }

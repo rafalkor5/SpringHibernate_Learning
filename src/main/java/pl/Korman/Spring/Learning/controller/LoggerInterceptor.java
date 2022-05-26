@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 //FIltrowanie zapytań post http za pomocą Interceptora
 // do działania potrzebne MvcConfiguration.class która
 // implementuje WebMvcConfigurer oraz metode addintercepter
-@Component
+//@Component off
 class LoggerInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger((LoggerFilter.class));
 

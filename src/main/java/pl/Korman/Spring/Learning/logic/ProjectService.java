@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import pl.Korman.Spring.Learning.model.project.Project;
 import pl.Korman.Spring.Learning.model.project.ProjectRepository;
 import pl.Korman.Spring.Learning.model.projectionmodel.GroupReadModel;
+import pl.Korman.Spring.Learning.model.projectionmodel.ProjectWriteModel;
 import pl.Korman.Spring.Learning.model.projectionmodel.TaskWriteModel;
 import pl.Korman.Spring.Learning.model.projectionmodel.GroupWriteModel;
 import pl.Korman.Spring.Learning.model.task.TaskConfigurationProperties;
@@ -29,8 +30,8 @@ class ProjectService {
     }
 
     //korzysta z crudreposql
-    public Project save(final Project tosave){
-        return repository.save(tosave);
+    public Project save(final ProjectWriteModel tosave){
+        return repository.save(tosave.toProject());
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, int projectId) {
@@ -50,7 +51,7 @@ class ProjectService {
                                                  return task;
                                             }
                                     ).collect(Collectors.toSet()));
-                    return taskGroupService.createGroup(targetGroup);
+                    return taskGroupService.createGroup(targetGroup,project);
                 }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found"));
     }
 
